@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "subject": "Mathematics",
+    "image": "./assets/math.png",
+    "location": "Room 101",
+    "price": 50,
+    "spaces": 5
+  },
+  {
+    "id": 2,
+    "subject": "Art",
+    "image": "./assets/art.png",
+    "location": "Art Studio",
+    "price": 30,
+    "spaces": 5
+  },
+  {
+    "id": 3,
+    "subject": "Science",
+    "image": "./assets/science.png",
+    "location": "Lab A",
+    "price": 40,
+    "spaces": 5
+  },
+  {
+    "id": 4,
+    "subject": "English",
+    "image": "./assets/english.png",
+    "location": "Library",
+    "price": 35,
+    "spaces": 5
+  },
+  {
+    "id": 5,
+    "subject": "History",
+    "image": "./assets/history.png",
+    "location": "Classroom 3",
+    "price": 45,
+    "spaces": 5
+  },
+  {
+    "id": 6,
+    "subject": "Music",
+    "image": "./assets/music.png",
+    "location": "Music Room",
+    "price": 25,
+    "spaces": 5
+  },
+  {
+    "id": 7,
+    "subject": "Dance",
+    "image": "./assets/dance.png",
+    "location": "Dance Studio",
+    "price": 30,
+    "spaces": 5
+  },
+  {
+    "id": 8,
+    "subject": "Basketball",
+    "image": "./assets/basketball.png",
+    "location": "Gymnasium",
+    "price": 20,
+    "spaces": 5
+  },
+  {
+    "id": 9,
+    "subject": "Computer Programming",
+    "image": "./assets/programming.png",
+    "location": "Computer Lab",
+    "price": 60,
+    "spaces": 5
+  },
+  {
+    "id": 10,
+    "subject": "Physics",
+    "image": "./assets/physics.png",
+    "location": "Lab B",
+    "price": 45,
+    "spaces": 5
+  },
+  {
+    "id": 11,
+    "subject": "Biology",
+    "image": "./assets/biology.png",
+    "location": "Lab C",
+    "price": 40,
+    "spaces": 5
+  },
+  {
+    "id": 12,
+    "subject": "Chemistry",
+    "image": "./assets/chemistry.png",
+    "location": "Lab D",
+    "price": 50,
+    "spaces": 5
+  },
+  {
+    "id": 13,
+    "subject": "Soccer",
+    "image": "./assets/soccer.png",
+    "location": "Soccer Field",
+    "price": 15,
+    "spaces": 5
+  },
+  {
+    "id": 14,
+    "subject": "Yoga",
+    "image": "./assets/yoga.png",
+    "location": "Wellness Center",
+    "price": 30,
+    "spaces": 5
+  },
+  {
+    "id": 15,
+    "subject": "Cooking",
+    "image": "./assets/cooking.png",
+    "location": "Kitchen",
+    "price": 25,
+    "spaces": 5
+  },
+  {
+    "id": 16,
+    "subject": "French",
+    "image": "./assets/french.png",
+    "location": "Classroom 5",
+    "price": 35,
+    "spaces": 5
+  },
+  {
+    "id": 17,
+    "subject": "Spanish",
+    "image": "./assets/spanish.png",
+    "location": "Classroom 6",
+    "price": 35,
+    "spaces": 5
+  },
+  {
+    "id": 18,
+    "subject": "Swimming",
+    "image": "./assets/swimming.png",
+    "location": "Swimming Pool",
+    "price": 20,
+    "spaces": 5
+  },
+  {
+    "id": 19,
+    "subject": "Robotics",
+    "image": "./assets/robotics.png",
+    "location": "Robotics Lab",
+    "price": 55,
+    "spaces": 5
+  },
+  {
+    "id": 20,
+    "subject": "Astronomy",
+    "image": "./assets/astronomy.png",
+    "location": "Observatory",
+    "price": 30,
+    "spaces": 5
+  }
+]

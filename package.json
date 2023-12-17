@@ -1,0 +1,10 @@
+{
+  "name": "client",
+  "description": "Client for Web Based Mobile App Dev Coursework2",
+  "packageManager": "yarn@3.5.1",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-client.git"
+  }
+}
