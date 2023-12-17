@@ -162,7 +162,7 @@
         },
         loadLessons: function () {
           //i'm just calling the lessons.json file using the javascript fetch method
-          fetch('lessons.json')
+          fetch('http://localhost:4000/lessons')
             .then(response => response.json())
             .then(dataFromJSON => (this.lessons = dataFromJSON))
         },
