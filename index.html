@@ -6,12 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+  <script src="./main.js" type="module"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
   <title>After School Online Lessons Booking System</title>
 </head>
 
 <body>
   <div id="app">
+    <div id="loading" v-if="!filteredAndSortedLessons.length">
+      <div id="wrapper">
+        <div id="mouse"></div>
+        <div class="loader">
+        </div>
+        <div class="loading-bar">
+          <div class="progress-bar"></div>
+        </div>
+        <div class="status">
+          <div class="state"></div>
+          <div class="percentage"></div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <header>
         <div class="flex">
@@ -20,40 +36,47 @@
           <input class="search" type="search" placeholder="Search for Lessons to book" v-model="searchQuery"
             v-if="!showCart" />
         </div>
-        <button @click="toggleShowCart" :disabled="totalItemsInTheCart === 0">
-          🛒 {{ `${ totalItemsInTheCart > 1 ? totalItemsInTheCart + ' Items' :
-          totalItemsInTheCart + ' Item'} in cart` }}
-        </button>
-        <button @click="resetCart" :disabled="totalItemsInTheCart === 0">
-          🗑️ Reset Cart
-        </button>
-        <!-- Sorting buttons [subject - location -  price - spaces] -->
-        <div class="sorting" v-if="!showCart">
-          <button @click="sortBySubject">Sort by Subject</button>
-          <button @click="sortByLocation">Sort by Location</button>
-          <button @click="sortByPrice">Sort by Price</button>
-          <button @click="sortBySpaces">Sort by Spaces</button>
-        </div>
+        <div class="header__buttons">
+          <!-- Cart button -->
+          <div class="header__buttons--cart">
+            <button @click="toggleShowCart" :disabled="totalItemsInTheCart === 0">
+              <ion-icon name="cart-outline"></ion-icon>
+              {{ `${ totalItemsInTheCart > 1 ? totalItemsInTheCart + ' Items' :
+              totalItemsInTheCart + ' Item'} in cart` }}
+            </button>
+            <button @click="resetCart" :disabled="totalItemsInTheCart === 0">
+              <ion-icon name="trash-outline"></ion-icon>
+              Reset Cart
+            </button>
+          </div>
 
+          <!-- Sorting buttons [subject - location -  price - spaces] -->
+          <div class="header__buttons--sorting" v-if="!showCart">
+            <button @click="sortBySubject">Sort by Subject</button>
+            <button @click="sortByLocation">Sort by Location</button>
+            <button @click="sortByPrice">Sort by Price</button>
+            <button @click="sortBySpaces">Sort by Spaces</button>
+          </div>
+        </div>
         <button class="backBtn" @click="toggleShowCart" v-if="showCart">⇦ Back to Lessons</button>
       </header>
       <main>
         <!-- Chechout view -->
         <div v-if="showCart">
           <h2>Shopping Cart</h2>
-          <div v-if="totalItemsInTheCart>0">
+          <div v-if="totalItemsInTheCart > 0">
             <ul class="cart-added-items">
-              <li v-for="(item, index) in cart" :key="item.id + '-' + index">
+              <li v-for="(item, index) in cart" :key="item._id + '-' + index">
                 <img :src="item.image" :alt="item.subject" width="50" height="50" />
                 <p>
                   [ {{ item.bookedClasses }} classes booked ] - {{ item.subject }}
-                  <span>- Total Price: <strong>£{{item.totalPrice }}</strong> </span>
+                  <span>- Total Price: <strong>£{{ Math.round(item.totalPrice) }}</strong> </span>
                 </p>
                 </span>
                 <button @click="removeFromCart(item)">Remove</button>
               </li>
             </ul>
-            <p>Your total price for all classes booked = £{{ totalCartPrice }}</p>
+            <p>Your total price for all classes booked = £{{ Math.round(totalCartPrice) }}</p>
             <form>
               <div class="input-group">
                 <label for="#name">Please Enter Your Name</label>
@@ -73,19 +96,33 @@
           </p>
         </div>
         <!-- Lessons view -->
-        <div class="grid-wrapper" v-else>
-          <div class="lesson" v-for="lesson in filteredAndSortedLessons" :key="lesson.id">
-            <img :src="lesson.image" :alt="lesson.subject" width="150" height="150" />
-            <h2 v-text="lesson.subject"></h2>
-            <p v-text="'Location: ' + lesson.location"></p>
-            <p v-text="'Price: £' + lesson.price"></p>
-            <p v-text="'Available Spaces: ' + lesson.spaces"></p>
-            <button @click="addToCart(lesson)" :disabled="lesson.spaces === 0">
-              Add to Cart
-            </button>
-          </div>
+        <div class="main bd-grid grid-wrapper" v-else>
+          <article class="lesson card" v-for="lesson in filteredAndSortedLessons" :key="lesson._id"
+            v-if="filteredAndSortedLessons.length">
+            <div class="card__img">
+              <img :src="lesson.image" :alt="lesson.subject" width="150" height="150">
+              <small>{{ lesson.subject }}</small>
+            </div>
+            <div class="card__name">
+              <small>Click Cart Icon to Add the Cart</small>
+            </div>
+            <div class="card__info">
+              <div>
+                <small class="card__info--location">Spaces: <strong>{{ lesson.spaces }}</strong></small>
+                <span class="card__preci card__preci--before">Location: {{ lesson.location }}</span>
+              </div>
+
+              <div>
+                <span class="card__preci card__preci--now">£{{ lesson.price }}</span>
+              </div>
+              <a class="card__icon" @click="addToCart(lesson)" :title="'Add ' + lesson.subject + ' to the Cart'"
+                :disabled="lesson.spaces === 0">
+                <ion-icon name="cart-outline"></ion-icon>
+              </a>
+            </div>
+          </article>
           <!-- Search for lessons NOT found! -->
-          <div class="errorMsg" v-if="filteredAndSortedLessons.length === 0">
+          <div class="errorMsg" v-if="filteredAndSortedLessons.length && filteredAndSortedLessons.length === 0">
             <p>Sorry, the lessons you are looking for cannot be found.</p>
             <p>Please try a different search or reset your filters.</p>
           </div>
@@ -93,148 +130,6 @@
       </main>
     </div>
   </div>
-
-  <script>
-    let lessonsBooking = new Vue({
-      el: '#app',
-      data: {
-        webappName: 'After School Booking',
-        showCart: false,
-        searchQuery: '',
-        sortCriteria: 'subject', //default value sorting by subject
-        sortDescending: false,
-        lessons: [],
-        cart: [],
-        name: '',
-        phone: ''
-      },
-      methods: { // methods are not cached and are re-evaluated on every render
-        addToCart: function (lesson) {
-          if (lesson.spaces > 0) {// only when there are spaces available then add to cart
-            lesson.spaces -= 1
-            const existingLesson = this.cart.find(item => item.id === lesson.id)
-            if (existingLesson) {// we'll check the lesson by it's id, we'll compare it to the cart using find method, if its there then we'll update the values
-              existingLesson.bookedClasses += 1
-              existingLesson.totalPrice += lesson.price
-            } else {//if not then we'll creat a new object for it to the cart and  push it to the cart
-              const cartLesson = Object.assign({}, lesson, {
-                bookedClasses: 1,
-                totalPrice: lesson.price
-              })
-              this.cart.push(cartLesson)
-            }
-          }
-        },
-
-        removeFromCart: function (lesson) {
-          lesson.spaces += 1;
-
-          const index = this.cart.findIndex(item => item.id === lesson.id);
-          if (index !== -1) {
-            this.cart[index].bookedClasses -= 1;
-            this.cart[index].totalPrice -= lesson.price;
-
-            if (this.cart[index].bookedClasses === 0) {
-              this.cart.splice(index, 1);
-            }
-
-            // Update the lessons array with the modified lesson
-            const originalLessonIndex = this.lessons.findIndex(item => item.id === lesson.id);
-            if (originalLessonIndex !== -1) {
-              this.lessons[originalLessonIndex].spaces += 1;
-            }
-          }
-        },
-
-        checkout: function () {
-          const confirmCheckout = confirm(
-            'Are you sure you want to confirm purchasing the items in the cart?'
-          )
-          if (!confirmCheckout) {
-            alert('You can go back and add more items or reset your cart')
-          } else {
-            alert('Thank you for your purchase')
-            this.resetCart()
-          }
-        },
-        toggleShowCart: function () {
-          this.showCart = !this.showCart
-        },
-        loadLessons: function () {
-          //i'm just calling the lessons.json file using the javascript fetch method
-          fetch('http://localhost:4000/lessons')
-            .then(response => response.json())
-            .then(dataFromJSON => (this.lessons = dataFromJSON))
-        },
-        resetCart: function () {//just reseting the array to empty array will reset it
-          this.cart = []
-          this.loadLessons()
-        },
-        toggleSorting() { //if it was ascending then it will be descending and vice versa
-          this.sortDescending = !this.sortDescending;
-        },
-        sortBySubject() {//I'll make sorting by subject and call the toggleSorting method
-          this.sortCriteria = 'subject';
-          this.toggleSorting();
-        },
-        sortByLocation() {//I'll make sorting using location and call the toggleSorting method
-          this.sortCriteria = 'location';
-          this.toggleSorting();
-        },
-        sortByPrice() {//I'll make sorting using price and call the toggleSorting method
-          this.sortCriteria = 'price';
-          this.toggleSorting();
-        },
-        sortBySpaces() {//here will be sorting using spaces and call the toggleSorting method
-          this.sortCriteria = 'spaces';
-          this.toggleSorting();
-        }
-      },
-      computed: {// computer properties are cached and only re-evaluated when the dependencies change [when the values of the variables change]
-        filteredAndSortedLessons() {
-          // filter the lessons by the search query
-          const filteredLessons = this.lessons.filter((lesson) =>
-            /*
-            * i'll take the lessons array and go through it using filter method,
-            * if the lesson subject or location includes the search query then it will be returned
-            */
-            lesson.subject.toLowerCase().includes(this.searchQuery.toLowerCase())
-            || lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase())
-          );
-
-          //here we gonna use the sort method from javascript, so I will sort only the filtered lessons
-          //using the selected sorting criteria like subject, location, price or spaces
-          return filteredLessons.sort((a, b) => {
-            const order = this.sortDescending ? -1 : 1;
-            const criteria = this.sortCriteria;
-
-            if (a[criteria] < b[criteria]) return -order;
-            if (a[criteria] > b[criteria]) return order;
-            return 0;
-          });
-        },
-        //simple method that will tell how many items were in the cart
-        totalItemsInTheCart: function () {
-          return this.cart.length
-        },
-        //I'll check if the name has more than 1 letter, and check if the phone number is valid (only numbers)
-        isInputValid: function () {
-          const name = this.name.trim()
-          const isPhoneValid = this.phone.trim().length > 2 // has at least 3 numbers
-          const isNameValid = /^[A-Za-z]+$/.test(name) && name.length > 1//  only letters and has at least 2 letters [spaces are NOT allowed]
-          return isPhoneValid && isNameValid
-        },
-        //I'll calculate the total price of my cart
-        totalCartPrice: function () {
-          return this.cart.reduce((total, item) => total + item.totalPrice, 0)
-        }
-      },
-      // created is called only once when the component is created [when the page is loaded]
-      created() {
-        this.loadLessons()
-      }
-    })
-  </script>
 </body>
 
 </html>

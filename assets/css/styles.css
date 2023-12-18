@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url('./loading.css');
+
+/*-- BASE --*/
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #7b3838;
+  --primary-button: #e8b1ba;
+  --hovered-button: #cd8d97;
+  --green-accent: #94b4a0;
+  --bright-green-accent: #1ee96c;
+  --first-color: #E3F8FF;
+  --second-color: #DCFAFB;
+  --third-color: #FFE8DF;
+  --accent-color: #FF5151;
+  --dark-color: #161616;
+  --body-font: 'Raleway', sans-serif;
+  --h1-font-size: 1.5rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: 0.938rem;
+  --smaller-font-size: 0.75rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --h1-font-size: 2rem;
+    --normal-font-size: 1rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --first-color: var(--third-color);
+    --second-color: var(--green-accent);
+  }
+}
+
+body {
+  margin: 2rem 0 0 0;
+  background-color: #fff;
+  color: var(--dark-color);
+  font-family: var(--body-font);
+  user-select: none;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem
+}
+
+.search {
+  padding: 1.25em 1em;
+  font-size: 1.25em;
+  width: clamp(70vw, calc(100% - 2rem), 90vw);
+  border-radius: 20rem;
+  border: 1px solid #555;
+}
+
+.header__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__buttons--cart ion-icon {
+  font-size: 1.2rem;
+  vertical-align: bottom;
+}
+
+.header__buttons--sorting {
+  display: inline-block;
+  width: fit-content;
+}
+
+.header__buttons--sorting button {
+  background-color: var(--green-accent)
+}
+
+.header__buttons--sorting button:focus {
+  background-color: var(--bright-green-accent);
+}
+
+.grid-wrapper {
+  --auto-grid-min-size: 16rem;
+  display: grid;
+  grid-gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.grid-wrapper .lesson.card:hover {
+  box-shadow: 0 0 1em rgba(33, 33, 33, .2);
+}
+
+.main {
+  padding: 2rem 0;
+}
+
+.bd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  max-width: 1200px;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  align-items: center;
+  gap: 2rem;
+}
+
+/*-- PAGES --*/
+.title-shop {
+  position: relative;
+  margin: 0 2.5rem;
+}
+
+.title-shop::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 72px;
+  height: 2px;
+  background-color: var(--dark-color);
+  margin-left: .25rem;
+}
+
+/*-- COMPONENT --*/
+.grid-wrapper .lesson.card {
+  min-width: 22rem;
+  max-width: 24rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vmin;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* .lesson.card :even */
+.lesson.card:nth-child(odd) {
+  background-color: var(--first-color);
+}
+
+.lesson.card:nth-child(even) {
+  background-color: var(--second-color);
+}
+
+.grid-wrapper .lesson.card .card__img {
+  margin: 0 auto;
+  max-width: 9.375rem;
+  max-height: 9.375rem;
+  transition: .5s;
+}
+
+.grid-wrapper .lesson.card .card__img img {
+  border-radius: 1vmin;
+  object-fit: cover;
+}
+
+.card__name {
+  position: absolute;
+  left: -25%;
+  top: 0;
+  width: 3.5rem;
+  height: 100%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  background-color: var(--dark-color);
+  color: #fff;
+  font-weight: bold;
+  transition: .5s;
+}
+
+.card__icon {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  line-height: 0;
+  border-radius: 50%;
+  background-color: #ffffff44;
+  padding: .4rem;
+  margin-bottom: -.4rem;
+  transition: background-color 300ms ease-in-out;
+}
+
+.card__icon:hover {
+  background-color: #fff;
+}
+
+.card__info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  transition: .5s;
+}
+
+.card__preci {
+  display: block;
+  text-align: center;
+}
+
+.card__preci--before {
+  font-size: var(--smaller-font-size);
+  color: var(--accent-color);
+}
+
+.card__preci--now {
+  font-size: var(--h3-font-size);
+  font-weight: bold;
+}
+
+/*Move left*/
+.card:hover {
+  box-shadow: 0 .5rem 1rem #D1D9E6;
+}
+
+.card:hover .card__name {
+  left: 0;
+}
+
+.card:hover .card__img {
+  transform: rotate(30deg);
+  transform-origin: center;
+  margin-left: 3.5rem;
+}
+
+.card:hover .card__info {
+  margin-left: 3.5rem;
+  padding: 0 1.5rem;
+}
+
+
+/*-- MEDIA QUERIES --*/
+@media screen and (min-width: 1200px) {
+  body {
+    margin: 3rem 0 0 0;
+  }
+
+  .title-shop {
+    margin: 0 5rem;
+  }
+
+  .bd-grid {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.cart-added-items li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+button,
+.card__icon {
+  cursor: pointer;
+}
+
+button {
+  margin: 1em 0;
+  padding: 0.75em 1.25em;
+  border-radius: 0.5em;
+  background-color: var(--primary-button);
+  color: #000;
+  font-size: 0.75em;
+  font-weight: bold;
+  border: 1px solid #000;
+  transition: background-color 300ms ease-in-out;
+}
+
+button:hover {
+  background-color: var(--hovered-button);
+}
+
+button.backBtn {
+  border-width: 2px;
+  background-color: white;
+}
+
+button.backBtn:hover {
+  border-color: var(--hovered-button);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 20rem;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  user-select: none;
+}
+
+.input-group input {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+}
+
+.errorMsg {
+  grid-column: 1 / -1;
+  border: 1px solid #d9534f;
+  border-radius: 4px;
+  color: #d9534f;
+  background-color: #f2dede;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.errorMsg>u {
+  color: #000;
+}
