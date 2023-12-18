@@ -66,10 +66,10 @@ export default new Vue({
 
       !confirm(confirmCheckoutMsg)
         ? alert(cancelCheckoutMsg)
-        : this.addOrder(this.checkoutForm, this.cart)
+        : this.saveOrder(this.checkoutForm, this.cart)
     },
 
-    addOrder: function (form, cart) {
+    saveOrder: function (form, cart) {
       alert('Thank you for your purchase')
       fetch('http://localhost:5000/orders', {
         method: 'POST',
