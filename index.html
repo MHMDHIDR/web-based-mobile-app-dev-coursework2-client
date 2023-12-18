@@ -40,12 +40,12 @@
           <!-- Cart button -->
           <div class="header__buttons--cart">
             <button @click="toggleShowCart" :disabled="totalItemsInTheCart === 0">
-              <ion-icon name="cart-outline"></ion-icon>
+              <img src="./assets/imgs/cart.svg" alt="Cart Icon">
               {{ `${ totalItemsInTheCart > 1 ? totalItemsInTheCart + ' Items' :
               totalItemsInTheCart + ' Item'} in cart` }}
             </button>
             <button @click="resetCart" :disabled="totalItemsInTheCart === 0">
-              <ion-icon name="trash-outline"></ion-icon>
+              <img src="./assets/imgs/trash.svg" alt="Trash Icon">
               Reset Cart
             </button>
           </div>
@@ -80,11 +80,11 @@
             <form>
               <div class="input-group">
                 <label for="#name">Please Enter Your Name</label>
-                <input type="text" id="name" :disabled="cart.length === 0" v-model="name" />
+                <input type="text" id="name" :disabled="cart.length === 0" v-model="checkoutForm.name" />
               </div>
               <div class="input-group">
                 <label for="#phone">Please Enter Your Phone Number</label>
-                <input type="number" id="phone" :disabled="cart.length === 0" v-model="phone" />
+                <input type="number" id="phone" :disabled="cart.length === 0" v-model="checkoutForm.phone" />
               </div>
             </form>
             <button @click="checkout" :disabled="cart.length === 0 || !isInputValid">
@@ -104,21 +104,22 @@
               <small>{{ lesson.subject }}</small>
             </div>
             <div class="card__name">
-              <small>Click Cart Icon to Add the Cart</small>
+              <small>{{ lesson.subject }}</small>
+              <span class="card__info--location">Location: {{ lesson.location }}</span>
             </div>
             <div class="card__info">
               <div>
-                <small class="card__info--location">Spaces: <strong>{{ lesson.spaces }}</strong></small>
-                <span class="card__preci card__preci--before">Location: {{ lesson.location }}</span>
+                <small class="card__info--spaces">Spaces: <strong>{{ lesson.spaces }}</strong></small>
+                <span class="card__info--location">Location: {{ lesson.location }}</span>
               </div>
 
               <div>
-                <span class="card__preci card__preci--now">£{{ lesson.price }}</span>
+                <span class="card__info--price">£{{ lesson.price }}</span>
               </div>
-              <a class="card__icon" @click="addToCart(lesson)" :title="'Add ' + lesson.subject + ' to the Cart'"
+              <button class="card__icon" @click="addToCart(lesson)" :title="'Add ' + lesson.subject + ' to the Cart'"
                 :disabled="lesson.spaces === 0">
-                <ion-icon name="cart-outline"></ion-icon>
-              </a>
+                <img src="./assets/imgs/cart.svg" alt="Cart Icon" :title="'Add ' + lesson.subject + ' to the Cart'">
+              </button>
             </div>
           </article>
           <!-- Search for lessons NOT found! -->

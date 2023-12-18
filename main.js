@@ -10,8 +10,10 @@ export default new Vue({
     sortDescending: false,
     lessons: [],
     cart: [],
-    name: '',
-    phone: ''
+    checkoutForm: {
+      name: '',
+      phone: ''
+    }
   },
   methods: {
     // methods are not cached and are re-evaluated on every render
@@ -58,15 +60,34 @@ export default new Vue({
     },
 
     checkout: function () {
-      const confirmCheckout = confirm(
+      const confirmCheckoutMsg =
         'Are you sure you want to confirm purchasing the items in the cart?'
-      )
-      if (!confirmCheckout) {
-        alert('You can go back and add more items or reset your cart')
-      } else {
-        alert('Thank you for your purchase')
-        this.resetCart()
-      }
+      const cancelCheckoutMsg = 'You can go back and add more items or reset your cart'
+
+      !confirm(confirmCheckoutMsg)
+        ? alert(cancelCheckoutMsg)
+        : this.addOrder(this.checkoutForm, this.cart)
+    },
+
+    addOrder: function (form, cart) {
+      alert('Thank you for your purchase')
+      fetch('http://localhost:5000/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...form,
+          orderedLessons: cart.map(({ _id, bookedClasses }) => ({
+            _id,
+            spaces: bookedClasses
+          }))
+        })
+      })
+        .then(res => res.json())
+        // if successful then reset the cart
+        .then(_data => this.resetCart())
+        .catch(err => alert(err))
     },
 
     toggleShowCart: function () {
@@ -151,9 +172,9 @@ export default new Vue({
     },
     //I'll check if the name has more than 1 letter, and check if the phone number is valid (only numbers)
     isInputValid: function () {
-      const name = this.name.trim()
-      const isPhoneValid = this.phone.trim().length > 2 // has at least 3 numbers
-      const isNameValid = /^[A-Za-z]+$/.test(name) && name.length > 1 //  only letters and has at least 2 letters [spaces are NOT allowed]
+      const { name, phone } = this.checkoutForm
+      const isPhoneValid = phone.trim().length > 2 // has at least 3 numbers
+      const isNameValid = /^[A-Za-z]+$/.test(name.trim()) && name.trim().length > 1 //  only letters and has at least 2 letters [spaces are NOT allowed]
       return isPhoneValid && isNameValid
     },
     //I'll calculate the total price of my cart
