@@ -109,7 +109,13 @@
             </div>
             <div class="card__info">
               <div>
-                <small class="card__info--spaces">Spaces: <strong>{{ lesson.spaces }}</strong></small>
+                <small class="card__info--spaces">
+                  {{
+                  lesson.spaces === 0 ? 'Fully Booked'
+                  : lesson.spaces === 1 ? '1 Last Seat'
+                  : `Spaces: ${lesson.spaces}`
+                  }}
+                </small>
                 <span class="card__info--location">Location: {{ lesson.location }}</span>
               </div>
 
