@@ -9,11 +9,14 @@ export default new Vue({
     sortCriteria: 'subject',
     sortDescending: false,
     fetchedLessons: [],
+    initialLessons: [],
     cart: [],
     checkoutForm: {
       name: '',
       phone: ''
-    }
+    },
+    searchDelay: 1000,
+    lastSearchQuery: ''
   },
   methods: {
     // methods are not cached and are re-evaluated on every render
@@ -71,11 +74,11 @@ export default new Vue({
 
     saveOrder: function (form, cart) {
       alert('Thank you for your purchase')
+
+      // Fetch POST to save the order
       fetch('http://localhost:5000/orders', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
           orderedLessons: cart.map(({ _id, bookedClasses }) => ({
@@ -85,17 +88,19 @@ export default new Vue({
         })
       })
         .then(res => res.json())
-        // if successful then reset the cart
+        /*
+         * if successful saved the order
+         * Them I'll use orderedLessons to update the lessons spaces
+         */
         .then(_data => this.updateLessonsSpaces())
+        // if there was an error then I'll alert the user
         .catch(err => alert(err))
     },
 
     updateLessonsSpaces: function () {
       fetch('http://localhost:5000/lessons', {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           orderedLessons: this.cart.map(({ _id, bookedClasses }) => ({
             _id,
@@ -105,6 +110,7 @@ export default new Vue({
       })
         .then(res => res.json())
         .then(_data => this.resetCart())
+        // if there was an error then I'll alert the user
         .catch(err => alert(err))
     },
 
@@ -113,15 +119,23 @@ export default new Vue({
     },
 
     loadLessons: function () {
-      const loadLessonsInterval = setInterval(() => {
-        fetch('http://localhost:5000/lessons')
-          .then(res => res.json())
-          .then(lessons => {
-            this.fetchedLessons = lessons
-            clearInterval(loadLessonsInterval)
-            loadingPage.remove()
-          })
-      }, 1000)
+      /*
+       *  Loading the lesson from the server after 1 second
+       *  to simulate the loading time, and show the loading page
+       */
+      //const loadLessonsInterval = setInterval(() => {
+      fetch('http://localhost:5000/lessons')
+        .then(res => res.json())
+        .then(lessons => {
+          this.initialLessons = lessons.slice()
+          this.fetchedLessons = lessons
+        })
+        .catch(error => alert(error))
+      // .finally(() => {
+      //   //loadingPage.remove()
+      //   clearInterval(loadLessonsInterval)
+      // })
+      //}, 1000)
     },
 
     resetCart: function () {
@@ -157,12 +171,49 @@ export default new Vue({
       //here will be sorting using spaces and call the toggleSorting method
       this.sortCriteria = 'spaces'
       this.toggleSorting()
+    },
+
+    // Add a debounce function to your code
+    debounce: function (func, delay) {
+      let timeoutId
+      return function () {
+        const context = this
+        const args = arguments
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+          func.apply(context, args)
+        }, delay)
+      }
     }
   },
   computed: {
     filteredLessons: function () {
       const searchQuery = this.searchQuery.trim().toLowerCase()
 
+      // Use debounce to delay the fetch request
+      const delayedFetch = this.debounce(() => {
+        if (searchQuery !== this.lastSearchQuery) {
+          // Using the last searchQuery if the user types too fast searchQuery hasn't changed
+          this.lastSearchQuery = searchQuery
+          if (searchQuery !== '') {
+            fetch(`http://localhost:5000/search?query=${encodeURIComponent(searchQuery)}`)
+              .then(res => res.json())
+              .then(lessons => {
+                this.fetchedLessons = lessons
+              })
+              .catch(error => {
+                console.error('Error fetching search results:', error)
+              })
+          } else {
+            this.fetchedLessons = this.initialLessons
+          }
+        }
+      }, this.searchDelay)
+
+      // Call the delayedFetch function when the user stops typing
+      delayedFetch()
+
+      // searching by subject, location, price, and spaces criterias
       return this.fetchedLessons.filter(
         lesson =>
           lesson.subject.toLowerCase().includes(searchQuery) ||

@@ -189,6 +189,7 @@ a {
   background-color: var(--third-color);
   border-radius: 25%;
   padding: 2rem;
+  -webkit-user-drag: none;
 }
 
 .card__name {
