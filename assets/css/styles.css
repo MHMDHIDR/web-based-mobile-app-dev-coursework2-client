@@ -130,8 +130,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--lesson-card-width), 1fr));
   max-width: 1200px;
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
+  margin-block: 2.5rem;
   align-items: center;
   gap: 2rem;
 }

@@ -86,6 +86,24 @@ export default new Vue({
       })
         .then(res => res.json())
         // if successful then reset the cart
+        .then(_data => this.updateLessonsSpaces())
+        .catch(err => alert(err))
+    },
+
+    updateLessonsSpaces: function () {
+      fetch('http://localhost:5000/lessons', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderedLessons: this.cart.map(({ _id, bookedClasses }) => ({
+            _id,
+            spaces: bookedClasses
+          }))
+        })
+      })
+        .then(res => res.json())
         .then(_data => this.resetCart())
         .catch(err => alert(err))
     },
