@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   <script src="./main.js" type="module"></script>
+  <link rel="icon" href="./assets/imgs/cart.svg">
   <link rel="stylesheet" href="./assets/css/styles.css" />
   <title>After School Online Lessons Booking System</title>
 </head>
 
 <body>
   <div id="app">
-    <div id="loading" v-if="!filteredAndSortedLessons.length">
+    <div id="loading" v-if="!fetchedLessons.length">
       <div id="wrapper">
         <div id="mouse"></div>
         <div class="loader">
@@ -97,8 +97,7 @@
         </div>
         <!-- Lessons view -->
         <div class="main bd-grid grid-wrapper" v-else>
-          <article class="lesson card" v-for="lesson in filteredAndSortedLessons" :key="lesson._id"
-            v-if="filteredAndSortedLessons.length">
+          <article class="lesson card" v-for="lesson in filteredLessons" :key="lesson._id" v-if="fetchedLessons.length">
             <div class="card__img">
               <img :src="lesson.image" :alt="lesson.subject" width="150" height="150">
               <small>{{ lesson.subject }}</small>
@@ -129,7 +128,7 @@
             </div>
           </article>
           <!-- Search for lessons NOT found! -->
-          <div class="errorMsg" v-if="filteredAndSortedLessons.length && filteredAndSortedLessons.length === 0">
+          <div class="errorMsg" v-if="fetchedLessons.length && fetchedLessons.length === 0">
             <p>Sorry, the lessons you are looking for cannot be found.</p>
             <p>Please try a different search or reset your filters.</p>
           </div>

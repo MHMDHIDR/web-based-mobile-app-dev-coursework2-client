@@ -8,7 +8,7 @@ export default new Vue({
     searchQuery: '',
     sortCriteria: 'subject',
     sortDescending: false,
-    lessons: [],
+    fetchedLessons: [],
     cart: [],
     checkoutForm: {
       name: '',
@@ -50,11 +50,11 @@ export default new Vue({
         }
 
         // Update the lessons array with the modified lesson
-        const originalLessonIndex = this.lessons.findIndex(
+        const originalLessonIndex = this.fetchedLessons.findIndex(
           item => item._id === lesson._id
         )
         if (originalLessonIndex !== -1) {
-          this.lessons[originalLessonIndex].spaces += 1
+          this.fetchedLessons[originalLessonIndex].spaces += 1
         }
       }
     },
@@ -117,7 +117,7 @@ export default new Vue({
         fetch('http://localhost:5000/lessons')
           .then(res => res.json())
           .then(lessons => {
-            this.lessons = lessons
+            this.fetchedLessons = lessons
             clearInterval(loadLessonsInterval)
             loadingPage.remove()
           })
@@ -130,59 +130,46 @@ export default new Vue({
       this.loadLessons()
     },
 
-    toggleSorting() {
+    toggleSorting: function () {
       //if it was ascending then it will be descending and vice versa
       this.sortDescending = !this.sortDescending
     },
 
-    sortBySubject() {
+    sortBySubject: function () {
       //I'll make sorting by subject and call the toggleSorting method
       this.sortCriteria = 'subject'
       this.toggleSorting()
     },
 
-    sortByLocation() {
+    sortByLocation: function () {
       //I'll make sorting using location and call the toggleSorting method
       this.sortCriteria = 'location'
       this.toggleSorting()
     },
 
-    sortByPrice() {
+    sortByPrice: function () {
       //I'll make sorting using price and call the toggleSorting method
       this.sortCriteria = 'price'
       this.toggleSorting()
     },
 
-    sortBySpaces() {
+    sortBySpaces: function () {
       //here will be sorting using spaces and call the toggleSorting method
       this.sortCriteria = 'spaces'
       this.toggleSorting()
     }
   },
   computed: {
-    // computer properties are cached and only re-evaluated when the dependencies change [when the values of the variables change]
-    filteredAndSortedLessons() {
-      // filter the lessons by the search query
-      const filteredLessons = this.lessons.filter(
+    filteredLessons: function () {
+      const searchQuery = this.searchQuery.trim().toLowerCase()
+
+      return this.fetchedLessons.filter(
         lesson =>
-          /*
-           * i'll take the lessons array and go through it using filter method,
-           * if the lesson subject or location includes the search query then it will be returned
-           */
-          lesson.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase())
+          lesson.subject.toLowerCase().includes(searchQuery) ||
+          lesson.location.toLowerCase().includes(searchQuery) ||
+          String(lesson.price).includes(searchQuery) ||
+          String(lesson.spaces).includes(searchQuery)
       )
-
-      //here we gonna use the sort method from javascript, so I will sort only the filtered lessons
-      //using the selected sorting criteria like subject, location, price or spaces
-      return filteredLessons.sort((a, b) => {
-        const order = this.sortDescending ? -1 : 1
-        const criteria = this.sortCriteria
-
-        if (a[criteria] < b[criteria]) return -order
-        if (a[criteria] > b[criteria]) return order
-        return 0
-      })
     },
     //simple method that will tell how many items were in the cart
     totalItemsInTheCart: function () {
