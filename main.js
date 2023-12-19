@@ -217,19 +217,34 @@ export default new Vue({
         }
       }, this.searchDelay)
 
-      // Call the delayedFetch function when the user stops typing
+      /**
+       *  Call the delayedFetch to make the fetch request when the user stops typing
+       * to avoid making too many requests
+       */
       delayedFetch()
 
-      // searching by subject, location, price, and spaces criterias
-      return this.fetchedLessons.filter(
-        lesson =>
-          lesson.subject.toLowerCase().includes(searchQuery) ||
-          lesson.location.toLowerCase().includes(searchQuery) ||
-          String(lesson.price).includes(searchQuery) ||
-          String(lesson.spaces).includes(searchQuery)
+      // Return the filtered lessons based on the searchQuery
+      return (
+        this.fetchedLessons
+          .filter(
+            lesson =>
+              lesson.subject.toLowerCase().includes(searchQuery) ||
+              lesson.location.toLowerCase().includes(searchQuery) ||
+              String(lesson.price).includes(searchQuery) ||
+              String(lesson.spaces).includes(searchQuery)
+          )
+          // sorting by the criteria and the order
+          .sort((a, b) => {
+            const order = this.sortDescending ? -1 : 1
+            const criteria = this.sortCriteria
+
+            if (a[criteria] < b[criteria]) return -order
+            if (a[criteria] > b[criteria]) return order
+            return 0
+          })
       )
     },
-    //simple method that will tell how many items were in the cart
+    //simple method that will count the items I have in the cart
     totalItemsInTheCart: function () {
       return this.cart.length
     },
