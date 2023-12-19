@@ -118,24 +118,24 @@ export default new Vue({
       this.showCart = !this.showCart
     },
 
+    /*
+     *  Loading the lesson from the server after 1 second
+     *  to simulate the loading time, and show the loading page
+     */
     loadLessons: function () {
-      /*
-       *  Loading the lesson from the server after 1 second
-       *  to simulate the loading time, and show the loading page
-       */
-      //const loadLessonsInterval = setInterval(() => {
-      fetch('http://localhost:5000/lessons')
-        .then(res => res.json())
-        .then(lessons => {
-          this.initialLessons = lessons.slice()
-          this.fetchedLessons = lessons
-        })
-        .catch(error => alert(error))
-      // .finally(() => {
-      //   //loadingPage.remove()
-      //   clearInterval(loadLessonsInterval)
-      // })
-      //}, 1000)
+      const loadLessonsInterval = setInterval(() => {
+        fetch('http://localhost:5000/lessons')
+          .then(res => res.json())
+          .then(lessons => {
+            this.initialLessons = lessons.slice()
+            this.fetchedLessons = lessons
+          })
+          .catch(error => alert(error))
+          .finally(() => {
+            //loadingPage.remove()
+            clearInterval(loadLessonsInterval)
+          })
+      }, 4000)
     },
 
     resetCart: function () {
@@ -173,7 +173,14 @@ export default new Vue({
       this.toggleSorting()
     },
 
-    // Add a debounce function to your code
+    /**
+     * Debounce method used to delay the fetch request
+     * the fetch request will be called after the
+     * user stops typing for 1 second
+     * @param {*} func
+     * @param {*} delay
+     * @returns {Function}
+     */
     debounce: function (func, delay) {
       let timeoutId
       return function () {
