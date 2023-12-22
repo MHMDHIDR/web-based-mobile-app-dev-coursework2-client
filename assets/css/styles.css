@@ -403,3 +403,105 @@ button:disabled {
 .errorMsg>u {
   color: #000;
 }
+
+/* Add this CSS to beautify the Cart section */
+
+.cart-container {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.cart-added-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-added-items li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-added-items li:last-child {
+  border-bottom: none;
+}
+
+.cart-added-items li img {
+  border-radius: 50%;
+}
+
+.cart-added-items li p {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.cart-added-items li button {
+  background-color: var(--primary-button);
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-added-items li button:hover {
+  background-color: var(--hovered-button);
+}
+
+.cart-summary {
+  margin-top: 20px;
+}
+
+.cart-summary p {
+  margin: 0;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-checkout {
+  background-color: var(--primary-button);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-checkout:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-checkout:hover:enabled {
+  background-color: var(--hovered-button);
+}
