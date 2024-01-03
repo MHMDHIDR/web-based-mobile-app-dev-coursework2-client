@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-  <script src="./main.js" type="module"></script>
+  <script src="./scripts/main.js" type="module"></script>
   <link rel="icon" href="./assets/imgs/cart.svg">
   <link rel="stylesheet" href="./assets/css/styles.css" />
   <title>After School Online Lessons Booking System</title>
@@ -77,7 +77,7 @@
               </li>
             </ul>
             <p>Your total price for all classes booked = £{{ Math.round(totalCartPrice) }}</p>
-            <form>
+            <form name="checkout">
               <div class="input-group">
                 <label for="#name">Please Enter Your Name</label>
                 <input type="text" id="name" :disabled="cart.length === 0" v-model="checkoutForm.name" />
