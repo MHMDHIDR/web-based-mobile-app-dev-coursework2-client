@@ -10,6 +10,7 @@ export default new Vue({
   el: '#app',
   data: {
     webappName: 'After School Booking',
+    API_URL: 'http://localhost:5000',
     showCart: false,
     searchQuery: '',
     sortCriteria: 'subject',
@@ -40,7 +41,7 @@ export default new Vue({
 
     loadLessons: function () {
       const loadLessonsInterval = setInterval(() => {
-        fetch('http://localhost:5000/lessons')
+        fetch(`${this.API_URL}/lessons`)
           .then(res => res.json())
           .then(lessons => {
             this.initialLessons = lessons.slice() // copy the lessons array to initialLessons
@@ -127,9 +128,11 @@ export default new Vue({
           // Using the last searchQuery if the user types too fast searchQuery hasn't changed
           this.lastSearchQuery = searchQuery
           if (searchQuery !== '') {
-            fetch(`http://localhost:5000/search?query=${encodeURIComponent(searchQuery)}`)
+            fetch(`${this.API_URL}/search?query=${encodeURIComponent(searchQuery)}`)
               .then(res => res.json())
               .then(lessons => {
+                if (!lessons.length || lessons.length === 0) return
+
                 this.fetchedLessons = lessons.map(lesson => {
                   /*
                    * if the lesson that is fetched was is already in the cart

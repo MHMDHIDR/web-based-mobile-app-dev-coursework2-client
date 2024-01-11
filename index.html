@@ -99,7 +99,7 @@
         <div class="main bd-grid grid-wrapper" v-else>
           <article class="lesson card" v-for="lesson in filteredLessons" :key="lesson._id" v-if="fetchedLessons.length">
             <div class="card__img">
-              <img :src="lesson.image" :alt="lesson.subject" width="150" height="150">
+              <img :src="`${API_URL}/images/` + lesson.image" :alt="lesson.subject" width="150" height="150">
               <small>{{ lesson.subject }}</small>
             </div>
             <div class="card__name">
