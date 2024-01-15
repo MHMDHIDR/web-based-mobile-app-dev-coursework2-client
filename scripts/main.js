@@ -24,7 +24,9 @@ export default new Vue({
     },
     LOAD_LESSONS_DELAY: 500,
     SEARCH_DELAY: 1000,
-    lastSearchQuery: ''
+    lastSearchQuery: '',
+    // when API is down or not respondant, this will be shown
+    apiError: null
   },
   methods: {
     addToCart,
@@ -40,18 +42,25 @@ export default new Vue({
     },
 
     loadLessons: function () {
-      const loadLessonsInterval = setInterval(() => {
-        fetch(`${this.API_URL}/lessons`)
-          .then(res => res.json())
-          .then(lessons => {
-            this.initialLessons = lessons.slice() // copy the lessons array to initialLessons
-            this.fetchedLessons = lessons
-          })
-          .catch(error => alert(error))
-          .finally(() => {
-            //loadingPage.remove()
-            clearInterval(loadLessonsInterval)
-          })
+      const loadLessonsInterval = setInterval(async () => {
+        try {
+          const fetchLessons = await fetch(`${this.API_URL}/lessons`)
+          const fetchedLessons = await fetchLessons.json()
+
+          // Set the fetched lessons
+          this.fetchedLessons = fetchedLessons
+          // copy the lessons array to initialLessons
+          this.initialLessons = fetchedLessons.slice()
+        } catch (error) {
+          this.apiError = `Sorry, We're unable to Get the lessons at the moment! Please try again later.`
+          console.error('Error fetching lessons: ', error)
+        } finally {
+          if (typeof loadingPage !== 'undefined' && loadingPage !== null) {
+            loadingPage.remove()
+          }
+
+          clearInterval(loadLessonsInterval)
+        }
       }, this.LOAD_LESSONS_DELAY)
     },
 

@@ -5,16 +5,17 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-  <script src="./scripts/main.js" type="module"></script>
   <link rel="icon" href="./assets/imgs/cart.svg">
   <link rel="stylesheet" href="./assets/css/styles.css" />
+  <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+  <script src="./scripts/main.js" type="module"></script>
   <title>After School Online Lessons Booking System</title>
 </head>
 
 <body>
   <div id="app">
-    <div id="loading" v-if="!fetchedLessons.length">
+    <!-- Loading Before Lessons are done fetching -->
+    <div id="loading" v-if="!fetchedLessons.length && !apiError">
       <div id="wrapper">
         <div id="mouse"></div>
         <div class="loader">
@@ -67,7 +68,7 @@
           <div v-if="totalItemsInTheCart > 0">
             <ul class="cart-added-items">
               <li v-for="(item, index) in cart" :key="item._id + '-' + index">
-                <img :src="item.image" :alt="item.subject" width="50" height="50" />
+                <img :src="`${API_URL}/images/` + item.image" :alt="item.subject" width="50" height="50" />
                 <p>
                   [ {{ item.bookedClasses }} classes booked ] - {{ item.subject }}
                   <span>- Total Price: <strong>£{{ Math.round(item.totalPrice) }}</strong> </span>
@@ -95,8 +96,10 @@
             Your Cart is empty, click <u>Back to Lessons</u> button to view the lessons
           </p>
         </div>
-        <!-- Lessons view -->
         <div class="main bd-grid grid-wrapper" v-else>
+          <!-- Show Error when lessons not found! -->
+          <p class="errorMsg" v-if="apiError">{{ apiError }}</p>
+          <!-- Lessons view -->
           <article class="lesson card" v-for="lesson in filteredLessons" :key="lesson._id" v-if="fetchedLessons.length">
             <div class="card__img">
               <img :src="`${API_URL}/images/` + lesson.image" :alt="lesson.subject" width="150" height="150">
