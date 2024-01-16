@@ -1,13 +1,13 @@
 ### After School Online Lessons Booking System for Students using VueJS, ExpressJS, NodeJS, MongoDB, and AWS
 
-> To Access this repo online click [here](https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-client)\
+> To Access The Client repo on Github click [here](https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-client)\
 > **or Copy this link: https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-client**
-
-> To view the project online click [here](https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client)\
-> **or copy this link: https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client**
 
 > To Read the API implementation of the project on Github click [here](https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-api)\
 > **or copy this link: https://github.com/MHMDHIDR/web-based-mobile-app-dev-coursework2-api**
+
+> To view the Project Client (VueJS) implementation of the project on Github click [here](https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client)\
+> **or copy this link: https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client**
 
 > To View the endpoint Response with all of the available lessons on AWS Elastic Beanstalk [ 👉🏼 **[HERE]** ](http://m00970572-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons)\
 > \
