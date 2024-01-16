@@ -14,10 +14,10 @@
   --hovered-button: #cd8d97;
   --green-accent: #94b4a0;
   --bright-green-accent: #1ee96c;
-  --first-color: #E3F8FF;
-  --second-color: #DCFAFB;
+  --first-color: #e3f8ff;
+  --second-color: #dcfafb;
   --third-color: #f4f4f4;
-  --accent-color: #FF5151;
+  --accent-color: #ff5151;
   --dark-color: #161616;
   --body-font: 'Raleway', sans-serif;
   --icon-size: 2.25rem;
@@ -28,27 +28,13 @@
   --lesson-card-width: 22rem;
 }
 
-@media screen and (min-width: 768px) {
-  :root {
-    --h1-font-size: 2rem;
-    --normal-font-size: 1rem;
-    --smaller-font-size: 0.813rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  :root {
-    --first-color: var(--third-color);
-    --second-color: var(--green-accent);
-  }
-}
-
 body {
   margin: 2rem 0 0 0;
   background-color: #fff;
   color: var(--dark-color);
   font-family: var(--body-font);
   user-select: none;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -73,7 +59,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem
+  margin-bottom: 2rem;
 }
 
 .search {
@@ -101,7 +87,7 @@ a {
 }
 
 .header__buttons--sorting button {
-  background-color: var(--green-accent)
+  background-color: var(--green-accent);
 }
 
 .header__buttons--sorting button:focus {
@@ -119,7 +105,7 @@ a {
 }
 
 .grid-wrapper .lesson.card:hover {
-  box-shadow: 0 0 1em rgba(33, 33, 33, .2);
+  box-shadow: 0 0 1em rgba(33, 33, 33, 0.2);
 }
 
 .main {
@@ -148,7 +134,7 @@ a {
   width: 72px;
   height: 2px;
   background-color: var(--dark-color);
-  margin-left: .25rem;
+  margin-left: 0.25rem;
 }
 
 /*-- COMPONENT --*/
@@ -179,7 +165,7 @@ a {
   margin: 0 auto;
   max-width: var(--sizr);
   max-height: var(--sizr);
-  transition: .5s;
+  transition: 0.5s;
   text-align: center;
 }
 
@@ -204,7 +190,7 @@ a {
   background-color: var(--dark-color);
   color: #fff;
   font-weight: bold;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .card__icon {
@@ -214,8 +200,8 @@ a {
   line-height: 0;
   border-radius: 50%;
   background-color: #ffffff44;
-  padding: .4rem;
-  margin-bottom: -.4rem;
+  padding: 0.4rem;
+  margin-bottom: -0.4rem;
   transition: background-color 300ms ease-in-out;
 }
 
@@ -233,7 +219,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  transition: .5s;
+  transition: 0.5s;
   z-index: 1000;
 }
 
@@ -258,7 +244,7 @@ a {
 }
 
 .card:hover {
-  box-shadow: 0 .5rem 1rem #D1D9E6;
+  box-shadow: 0 0.5rem 1rem #d1d9e6;
 }
 
 .card:hover .card__name {
@@ -284,26 +270,12 @@ a {
 }
 
 .card:hover .card__info .card__info--price {
-  text-shadow: 0 0 1rem #fff, 0 0 1rem #fff
+  text-shadow: 0 0 1rem #fff, 0 0 1rem #fff;
 }
 
 .card:hover .card__info .card__info--price {
   font-size: var(--h1-font-size);
   color: var(--accent-color);
-}
-
-@keyframes animate-down {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(150%);
-  }
-
-  100% {
-    transform: translateY(100%);
-  }
 }
 
 .card .card__info--location {
@@ -313,22 +285,6 @@ a {
 
 .card:hover .card__info .card__info--location {
   transform: translateY(100vh);
-}
-
-/*-- MEDIA QUERIES --*/
-@media screen and (min-width: 1200px) {
-  body {
-    margin: 3rem 0 0 0;
-  }
-
-  .title-shop {
-    margin: 0 5rem;
-  }
-
-  .bd-grid {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .cart-added-items li {
@@ -400,12 +356,11 @@ button:disabled {
   font-weight: bold;
 }
 
-.errorMsg>u {
+.errorMsg > u {
   color: #000;
 }
 
 /* Add this CSS to beautify the Cart section */
-
 .cart-container {
   background-color: #f8f8f8;
   border-radius: 10px;
@@ -505,3 +460,51 @@ button:disabled {
 .button-checkout:hover:enabled {
   background-color: var(--hovered-button);
 }
+
+/*-- MEDIA QUERIES START --*/
+@media screen and (min-width: 768px) {
+  :root {
+    --h1-font-size: 2rem;
+    --normal-font-size: 1rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --first-color: var(--third-color);
+    --second-color: var(--green-accent);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  body {
+    margin: 3rem 0 0 0;
+  }
+
+  .title-shop {
+    margin: 0 5rem;
+  }
+
+  .bd-grid {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/*-- MEDIA QUERIES END --*/
+
+/*-- Keyframes START --*/
+@keyframes animate-down {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(150%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+/*-- Keyframes END --*/
