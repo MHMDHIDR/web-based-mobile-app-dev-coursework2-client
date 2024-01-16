@@ -10,7 +10,8 @@ export default new Vue({
   el: '#app',
   data: {
     webappName: 'After School Booking',
-    API_URL: 'http://localhost:5000',
+    API_URL: `http://localhost:5000`,
+    ELASTIC_BEANSTALK_API_URL: `http://m00970572-lessons-booking-system.eu-west-2.elasticbeanstalk.com`,
     showCart: false,
     searchQuery: '',
     sortCriteria: 'subject',
@@ -44,7 +45,7 @@ export default new Vue({
     loadLessons: function () {
       const loadLessonsInterval = setInterval(async () => {
         try {
-          const fetchLessons = await fetch(`${this.API_URL}/lessons`)
+          const fetchLessons = await fetch(`${this.ELASTIC_BEANSTALK_API_URL}/lessons`)
           const fetchedLessons = await fetchLessons.json()
 
           // Set the fetched lessons
@@ -137,7 +138,11 @@ export default new Vue({
           // Using the last searchQuery if the user types too fast searchQuery hasn't changed
           this.lastSearchQuery = searchQuery
           if (searchQuery !== '') {
-            fetch(`${this.API_URL}/search?query=${encodeURIComponent(searchQuery)}`)
+            fetch(
+              `${this.ELASTIC_BEANSTALK_API_URL}/search?query=${encodeURIComponent(
+                searchQuery
+              )}`
+            )
               .then(res => res.json())
               .then(lessons => {
                 if (!lessons.length || lessons.length === 0) return
