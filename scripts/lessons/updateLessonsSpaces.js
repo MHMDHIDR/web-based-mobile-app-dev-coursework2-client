@@ -1,5 +1,5 @@
 export function updateLessonsSpaces(cart) {
-  fetch('http://localhost:5000/lessons', {
+  fetch('https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
