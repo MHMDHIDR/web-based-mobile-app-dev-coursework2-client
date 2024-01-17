@@ -10,7 +10,6 @@ export default new Vue({
   el: '#app',
   data: {
     webappName: 'After School Booking',
-    API_URL: `http://localhost:5000`,
     ELASTIC_BEANSTALK_API_URL: `https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com`,
     showCart: false,
     searchQuery: '',
