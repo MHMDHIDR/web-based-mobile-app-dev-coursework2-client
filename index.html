@@ -68,7 +68,8 @@
           <div v-if="totalItemsInTheCart > 0">
             <ul class="cart-added-items">
               <li v-for="(item, index) in cart" :key="item._id + '-' + index">
-                <img :src="`${API_URL}/images/` + item.image" :alt="item.subject" width="50" height="50" />
+                <img :src="`${ELASTIC_BEANSTALK_API_URL}/images/` + item.image" :alt="item.subject" width="50"
+                  height="50" />
                 <p>
                   [ {{ item.bookedClasses }} classes booked ] - {{ item.subject }}
                   <span>- Total Price: <strong>£{{ Math.round(item.totalPrice) }}</strong> </span>
@@ -102,7 +103,8 @@
           <!-- Lessons view -->
           <article class="lesson card" v-for="lesson in filteredLessons" :key="lesson._id" v-if="fetchedLessons.length">
             <div class="card__img">
-              <img :src="`${API_URL}/images/` + lesson.image" :alt="lesson.subject" width="150" height="150">
+              <img :src="`${ELASTIC_BEANSTALK_API_URL}/images/` + lesson.image" :alt="lesson.subject" width="150"
+                height="150">
               <small>{{ lesson.subject }}</small>
             </div>
             <div class="card__name">
