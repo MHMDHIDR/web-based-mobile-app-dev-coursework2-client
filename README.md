@@ -9,11 +9,11 @@
 > To view the Project Client (VueJS) implementation of the project on Github click [here](https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client)\
 > **or copy this link: https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client**
 
-> To View the endpoint Response with all of the available lessons on AWS Elastic Beanstalk [ 👉🏼 **[HERE]** ](http://m00970572-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons)\
+> To View the endpoint Response with all of the available lessons on AWS Elastic Beanstalk [ 👉🏼 **[HERE]** ](https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons)\
 > \
 > **or Copy this Link and Paste into Your Browser:
 > \
-> http://m00970572-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons**
+> https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons**
 
 ## Project setup
 
