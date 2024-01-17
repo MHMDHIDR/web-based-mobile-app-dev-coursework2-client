@@ -1,9 +1,9 @@
 import { updateLessonsSpaces } from '../lessons/updateLessonsSpaces.js'
 import { resetCart } from '../cart/resetCart.js'
 
-export function saveOrder(form, cart, ELASTIC_BEANSTALK_API_URL) {
+export function saveOrder(form, cart) {
   // Fetch POST to save the order
-  fetch(`${ELASTIC_BEANSTALK_API_URL}/orders`, {
+  fetch(`https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com/orders`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

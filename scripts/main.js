@@ -39,7 +39,7 @@ export default new Vue({
       checkout(this.checkoutForm, this.cart, this.updateLessonsSpaces)
     },
     saveOrder: function () {
-      saveOrder(this.checkoutForm, this.cart, this.ELASTIC_BEANSTALK_API_URL)
+      saveOrder(this.checkoutForm, this.cart)
     },
 
     loadLessons: function () {
