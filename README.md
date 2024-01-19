@@ -9,6 +9,10 @@
 > To view the Project Client (VueJS) implementation of the project on Github click [here](https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client)\
 > **or copy this link: https://mhmdhidr.github.io/web-based-mobile-app-dev-coursework2-client**
 
+##### The Client App (Frontend) for getting After School Online Lessons
+
+<image src='./assets/imgs/client_frontend.png' width='100%' height='auto' alt='After School Online Lessons Booking System'>
+
 > To View the endpoint Response with all of the available lessons on AWS Elastic Beanstalk [ 👉🏼 **[HERE]** ](https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com/lessons)\
 > \
 > **or Copy this Link and Paste into Your Browser:
