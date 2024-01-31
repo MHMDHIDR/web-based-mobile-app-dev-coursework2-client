@@ -1,8 +1,8 @@
 import {
   addToCart,
+  checkout,
   removeFromCart,
   resetCart,
-  checkout,
   saveOrder
 } from './cart/index.js'
 
@@ -10,7 +10,7 @@ export default new Vue({
   el: '#app',
   data: {
     webappName: 'After School Booking',
-    ELASTIC_BEANSTALK_API_URL: `https://cst3145-lessons-booking-system.eu-west-2.elasticbeanstalk.com`,
+    ELASTIC_BEANSTALK_API_URL: `https://afterschoolbookingsystem-env.eba-mczp9a9e.eu-west-2.elasticbeanstalk.com`,
     showCart: false,
     searchQuery: '',
     sortCriteria: 'subject',
